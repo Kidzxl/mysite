@@ -136,6 +136,7 @@ def change_password(request):
             old_password = form.cleaned_data['old_password']
             new_password = form.cleaned_data['new_password']
             user.set_password(new_password)
+            print(new_password)
             user.save()
             auth.logout(request)
             return redirect(redirect_to)
@@ -159,7 +160,9 @@ def forgot_password(request):
             new_password = form.cleaned_data['new_password']
             user = User.objects.get(email=email)
             user.set_password(new_password)
+            print(new_password)
             user.save()
+            print(user.get_password)
             # 清除 session
             del request.session['forgot_password_code']
             return redirect(redirect_to)
